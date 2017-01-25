@@ -33,12 +33,12 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick
+    @OnClick(R.id.btnSignin)
     public void handleSignin() {
 
     }
 
-    @OnClick
+    @OnClick(R.id.btnSignup)
     public void handleSignup() {
 
     }
