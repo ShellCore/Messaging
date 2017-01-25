@@ -1,4 +1,4 @@
-package com.shellcore.android.messaging;
+package com.shellcore.android.messaging.login;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+
+import com.shellcore.android.messaging.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

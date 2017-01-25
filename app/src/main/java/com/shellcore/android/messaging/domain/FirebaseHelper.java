@@ -1,4 +1,4 @@
-package com.shellcore.android.messaging;
+package com.shellcore.android.messaging.domain;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
