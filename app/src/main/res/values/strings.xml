@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Messaging</string>
+    <string name="login.hint.email">Correo electrónico</string>
+    <string name="login.hint.password">Contraseña</string>
+    <string name="login.button.signin">Iniciar sesión</string>
+    <string name="login.button.signup">Crear cuenta</string>
 </resources>
