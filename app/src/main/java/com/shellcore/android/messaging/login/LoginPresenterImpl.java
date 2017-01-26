@@ -1,5 +1,10 @@
 package com.shellcore.android.messaging.login;
 
+import android.util.Log;
+
+import com.shellcore.android.messaging.events.LoginEvent;
+import com.shellcore.android.messaging.libs.EventBus;
+import com.shellcore.android.messaging.libs.GreenRobotEventBus;
 import com.shellcore.android.messaging.login.ui.LoginView;
 
 /**
@@ -8,17 +13,25 @@ import com.shellcore.android.messaging.login.ui.LoginView;
 
 public class LoginPresenterImpl implements LoginPresenter {
 
+    private EventBus eventBus;
     private LoginView view;
     private LoginInteractor interactor;
 
     public LoginPresenterImpl(LoginView view) {
         this.view = view;
         this.interactor = new LoginInteractorImpl();
+        this.eventBus = GreenRobotEventBus.getInstance();
+    }
+
+    @Override
+    public void onCreate() {
+        eventBus.register(this);
     }
 
     @Override
     public void onDestroy() {
         view = null;
+        eventBus.unregister(this);
     }
 
     @Override
@@ -46,6 +59,36 @@ public class LoginPresenterImpl implements LoginPresenter {
             view.showProgress();
         }
         interactor.doSignup(email, password);
+    }
+
+
+    @Override
+    public void onEventMainThread(LoginEvent event) {
+        switch (event.getEventType()) {
+            case LoginEvent.onSigninError:
+                onSigninError(event.getErrorMessage());
+                break;
+            case LoginEvent.onSignupError:
+                onSignupError(event.getErrorMessage());
+                break;
+            case LoginEvent.onSigninSuccess:
+                onSigninSuccess();
+                break;
+            case LoginEvent.onSignupSuccess:
+                onSignupSuccess();
+                break;
+            case LoginEvent.onFailedToRecoverySession:
+                onEventFailedToRecoverySession();
+                break;
+        }
+    }
+
+    private void onEventFailedToRecoverySession() {
+        if (view != null) {
+            view.hideProgress();
+            view.enableInputs();
+        }
+        Log.e("LoginPresenterImpl", "onEventFailedToRecoverySession");
     }
 
     private void onSigninSuccess() {

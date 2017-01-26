@@ -51,7 +51,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         presenter = new LoginPresenterImpl(this);
+        presenter.onCreate();
         presenter.checkForAuthenticatedUser();
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
     }
 
     @Override
