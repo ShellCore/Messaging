@@ -42,26 +42,7 @@ public class LoginRepositoryImpl implements LoginRepository {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            myUserReference = helper.getMyUserReference();
-                            myUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    User currentUser = dataSnapshot.getValue(User.class);
-
-                                    if (currentUser == null) {
-                                        String email = helper.getAuthUserEmail();
-                                        if (email != null) {
-                                            currentUser = new User();
-                                            myUserReference.setValue(currentUser);
-                                        }
-                                    }
-                                    helper.changeUserConnectionStatus(User.ONLINE);
-                                    postEvent(LoginEvent.onSigninSuccess);
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {}
-                            });
+                            initSignin();
                         } else {
                             postEvent(LoginEvent.onSigninError, task.getException().getMessage());
                         }
@@ -90,7 +71,39 @@ public class LoginRepositoryImpl implements LoginRepository {
 
     @Override
     public void checkSession() {
-        postEvent(LoginEvent.onFailedToRecoverySession);
+        if (authReference.getCurrentUser() != null) {
+            initSignin();
+        } else {
+            postEvent(LoginEvent.onFailedToRecoverySession);
+        }
+    }
+
+    private void initSignin() {
+        myUserReference = helper.getMyUserReference();
+        myUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User currentUser = dataSnapshot.getValue(User.class);
+
+                if (currentUser == null) {
+                    registerNewUser();
+                }
+                helper.changeUserConnectionStatus(User.ONLINE);
+                postEvent(LoginEvent.onSigninSuccess);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    private void registerNewUser() {
+        String email = helper.getAuthUserEmail();
+        if (email != null) {
+            User currentUser = new User();
+            currentUser.setEmail(email);
+            myUserReference.setValue(currentUser);
+        }
     }
 
     private void postEvent(int eventType) {

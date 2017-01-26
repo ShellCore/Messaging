@@ -88,7 +88,6 @@ public class LoginPresenterImpl implements LoginPresenter {
             view.hideProgress();
             view.enableInputs();
         }
-        Log.e("LoginPresenterImpl", "onEventFailedToRecoverySession");
     }
 
     private void onSigninSuccess() {
