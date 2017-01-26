@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.shellcore.android.messaging.entities.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,15 @@ public class FirebaseHelper {
 
     public FirebaseHelper() {
         authReference = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance();
+    }
+
+    public FirebaseAuth getAuthReference() {
+        return authReference;
+    }
+
+    public FirebaseDatabase getDatabaseReference() {
+        return databaseReference;
     }
 
     public String getAuthUserEmail() {
@@ -103,7 +113,7 @@ public class FirebaseHelper {
     }
 
     public void signOff() {
-        notifyContactsOfConnectionChanged(false, true);
+        notifyContactsOfConnectionChanged(User.OFFLINE, true);
     }
 
     private void notifyContactsOfConnectionChanged(final boolean online, final boolean signoff) {
