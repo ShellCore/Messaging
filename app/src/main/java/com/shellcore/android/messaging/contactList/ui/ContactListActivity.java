@@ -1,4 +1,4 @@
-package com.shellcore.android.messaging.contactList;
+package com.shellcore.android.messaging.contactList.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

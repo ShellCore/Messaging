@@ -13,10 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.shellcore.android.messaging.R;
-import com.shellcore.android.messaging.contactList.ContactListActivity;
+import com.shellcore.android.messaging.contactList.ui.ContactListActivity;
 import com.shellcore.android.messaging.login.LoginPresenter;
 import com.shellcore.android.messaging.login.LoginPresenterImpl;
-import com.shellcore.android.messaging.login.ui.LoginView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
