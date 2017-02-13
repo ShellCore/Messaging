@@ -1,4 +1,4 @@
-package com.shellcore.android.messaging.contactList.ui.adapters;
+package com.shellcore.android.messaging.libs;
 
 import android.widget.ImageView;
 
