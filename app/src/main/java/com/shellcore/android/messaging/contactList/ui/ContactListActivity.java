@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.shellcore.android.messaging.R;
+import com.shellcore.android.messaging.addContact.ui.AddContactFragment;
 import com.shellcore.android.messaging.contactList.ContactListPresenter;
 import com.shellcore.android.messaging.contactList.ContactListPresenterImpl;
 import com.shellcore.android.messaging.contactList.ui.adapters.ContactListAdapter;
@@ -112,7 +113,7 @@ public class ContactListActivity extends AppCompatActivity implements ContactLis
 
     @OnClick(R.id.btnAdd)
     public void addContact() {
-
+        new AddContactFragment().show(getFragmentManager(), getString(R.string.addcontact_message_title));
     }
 
     @Override
