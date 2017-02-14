@@ -63,6 +63,28 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         return contacts.size();
     }
 
+    public void add(User user) {
+        if (!contacts.contains(user)) {
+            contacts.add(user);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void update(User user) {
+        if (contacts.contains(user)) {
+            int pos = contacts.indexOf(user);
+            contacts.set(pos, user);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void remove(User user) {
+        if (contacts.contains(user)) {
+            contacts.remove(user);
+            notifyDataSetChanged();
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private View view;

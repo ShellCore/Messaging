@@ -90,7 +90,6 @@ public class ContactListRepositoryImpl implements ContactListRepository {
 
     @Override
     public void changeConnectionStatus(boolean online) {
-
     }
 
     private void post(int type, User user) {

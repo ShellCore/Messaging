@@ -1,19 +1,25 @@
 package com.shellcore.android.messaging.contactList.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.shellcore.android.messaging.R;
 import com.shellcore.android.messaging.contactList.ContactListPresenter;
+import com.shellcore.android.messaging.contactList.ContactListPresenterImpl;
 import com.shellcore.android.messaging.contactList.ui.adapters.ContactListAdapter;
 import com.shellcore.android.messaging.contactList.ui.adapters.OnItemClickListener;
 import com.shellcore.android.messaging.entities.User;
 import com.shellcore.android.messaging.libs.GlideImageLoader;
 import com.shellcore.android.messaging.libs.ImageLoader;
+import com.shellcore.android.messaging.login.ui.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -45,6 +51,7 @@ public class ContactListActivity extends AppCompatActivity implements ContactLis
 
         setupAdapter();
         setupRecyclerView();
+        presenter = new ContactListPresenterImpl(this);
         presenter.onCreate();
         setupToolbar();
     }
@@ -82,6 +89,27 @@ public class ContactListActivity extends AppCompatActivity implements ContactLis
         super.onDestroy();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_contactlist, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                presenter.signOff();
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnClick(R.id.btnAdd)
     public void addContact() {
 
@@ -89,26 +117,27 @@ public class ContactListActivity extends AppCompatActivity implements ContactLis
 
     @Override
     public void onContactAdded(User user) {
-
+        adapter.add(user);
     }
 
     @Override
     public void onContactChanged(User user) {
-
+        adapter.update(user);
     }
 
     @Override
     public void onContactRemoved(User user) {
-
+        adapter.remove(user);
     }
 
     @Override
     public void onItemClick(User user) {
-
+        Toast.makeText(this, user.getEmail(), Toast.LENGTH_SHORT)
+                .show();
     }
 
     @Override
     public void onItemLongClick(User user) {
-
+        presenter.removeContact(user.getEmail());
     }
 }
