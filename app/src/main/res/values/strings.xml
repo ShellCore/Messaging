@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Messaging</string>
+
     <string name="login.hint.email">Correo electrónico</string>
     <string name="login.hint.password">Contraseña</string>
     <string name="login.button.signin">Iniciar sesión</string>
@@ -7,9 +8,13 @@
     <string name="login.error.signin">Imposible iniciar sesión (%s)</string>
     <string name="login.error.signup">Imposible registrar nuevo usuario (%s)</string>
     <string name="login.notice.signup">Usuario agregado exitosamente</string>
+
     <string name="contactList.menu.action.signoff">Cerrar sesión</string>
     <string name="contactList.title">Contactos</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addcontact.message.title">Agregar contacto</string>
+    <string name="addcontact.message.add">Aceptar</string>
+    <string name="addcontact.message.cancel">Cancelar</string>
+    <string name="addcontact.message.contactAdded">Contacto agregado exitosamente</string>
+    <string name="addcontact.error.message">Imposible agregar usuario no existente</string>
 </resources>
