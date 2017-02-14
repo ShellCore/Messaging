@@ -7,6 +7,8 @@ import com.shellcore.android.messaging.libs.EventBus;
 import com.shellcore.android.messaging.libs.GreenRobotEventBus;
 import com.shellcore.android.messaging.login.ui.LoginView;
 
+import org.greenrobot.eventbus.Subscribe;
+
 /**
  * Created by Cesar on 25/01/2017.
  */
@@ -63,6 +65,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
 
     @Override
+    @Subscribe
     public void onEventMainThread(LoginEvent event) {
         switch (event.getEventType()) {
             case LoginEvent.onSigninError:
