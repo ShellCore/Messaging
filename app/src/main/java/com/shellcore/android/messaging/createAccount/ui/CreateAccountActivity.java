@@ -1,4 +1,4 @@
-package com.shellcore.android.messaging.login.ui;
+package com.shellcore.android.messaging.createAccount.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,20 +14,20 @@ import android.widget.RelativeLayout;
 
 import com.shellcore.android.messaging.R;
 import com.shellcore.android.messaging.contactList.ui.ContactListActivity;
-import com.shellcore.android.messaging.createAccount.ui.CreateAccountActivity;
-import com.shellcore.android.messaging.login.LoginPresenter;
-import com.shellcore.android.messaging.login.LoginPresenterImpl;
+import com.shellcore.android.messaging.createAccount.CreateAccountPresenter;
+import com.shellcore.android.messaging.createAccount.CreateAccountPresenterImpl;
+import com.shellcore.android.messaging.login.ui.LoginActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity implements LoginView {
+public class CreateAccountActivity extends AppCompatActivity implements CreateAccountView {
 
     // Servicios
-    private LoginPresenter presenter;
+    private CreateAccountPresenter presenter;
 
-    // Componentes
+    // Components
     @Bind(R.id.edtEmail)
     EditText edtEmail;
     @Bind(R.id.tilEmail)
@@ -36,25 +36,25 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     EditText edtPassword;
     @Bind(R.id.tilPassword)
     TextInputLayout tilPassword;
+    @Bind(R.id.btnCancel)
+    Button btnCancel;
+    @Bind(R.id.btnAccept)
+    Button btnAccept;
     @Bind(R.id.lnrButtons)
     LinearLayout lnrButtons;
     @Bind(R.id.barLogin)
     ProgressBar barLogin;
-    @Bind(R.id.btnSignin)
-    Button btnSignin;
-    @Bind(R.id.btnSignup)
-    Button btnSignup;
-    @Bind(R.id.activity_login)
-    RelativeLayout activityLogin;
+    @Bind(R.id.activity_create_account)
+    RelativeLayout activityCreateAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_create_account);
         ButterKnife.bind(this);
-        presenter = new LoginPresenterImpl(this);
+
+        presenter = new CreateAccountPresenterImpl(this);
         presenter.onCreate();
-        presenter.checkForAuthenticatedUser();
     }
 
     @Override
@@ -64,12 +64,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void enableInputs() {
+    public void enableInput() {
         setInputs(true);
     }
 
     @Override
-    public void disableInputs() {
+    public void disableInput() {
         setInputs(false);
     }
 
@@ -83,23 +83,27 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         barLogin.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.btnSignin)
+    @OnClick(R.id.btnAccept)
     @Override
-    public void handleSignin() {
+    public void handleSignUp() {
         String email = edtEmail.getText().toString();
-        String password = edtPassword.getText().toString();
+        String pass = edtPassword.getText().toString();
         if (email != null
-                && !email.isEmpty()
-                && password != null
-                && !password.isEmpty()) {
-            presenter.validateLogin(email, password);
+                &&!email.isEmpty()
+                && pass != null
+                && !pass.isEmpty()) {
+            presenter.registerNewUser(email, pass);
         }
     }
 
-    @OnClick(R.id.btnSignup)
+    @OnClick(R.id.btnCancel)
     @Override
-    public void handleSignup() {
-        startActivity(new Intent(this, CreateAccountActivity.class));
+    public void handleCancel() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override
@@ -116,7 +120,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void newUserSuccess() {
-        Snackbar.make(activityLogin, R.string.login_notice_signup, Snackbar.LENGTH_SHORT)
+        Snackbar.make(activityCreateAccount, R.string.login_notice_signup, Snackbar.LENGTH_SHORT)
                 .show();
     }
 
@@ -128,9 +132,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     private void setInputs(boolean enabled) {
-        edtEmail.setEnabled(enabled);
-        edtPassword.setEnabled(enabled);
-        btnSignin.setEnabled(enabled);
-        btnSignup.setEnabled(enabled);
+        tilEmail.setEnabled(enabled);
+        tilPassword.setEnabled(enabled);
+        btnCancel.setEnabled(enabled);
+        btnAccept.setEnabled(enabled);
     }
 }

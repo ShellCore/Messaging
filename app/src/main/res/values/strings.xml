@@ -17,4 +17,6 @@
     <string name="addcontact.message.cancel">Cancelar</string>
     <string name="addcontact.message.contactAdded">Contacto agregado exitosamente</string>
     <string name="addcontact.error.message">Imposible agregar usuario no existente</string>
+    <string name="createaccount.button.cancel">Cancelar</string>
+    <string name="createaccount.button.accept">Aceptar</string>
 </resources>
