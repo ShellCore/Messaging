@@ -9,7 +9,6 @@ public class CreateAccountEvent {
     public static final int onSignupError = 2;
     public static final int onSigninSuccess = 3;
     public static final int onSignupSuccess = 4;
-    public static final int onFailedToRecoverySession = 5;
 
     private int eventType;
     private String errorMessage;

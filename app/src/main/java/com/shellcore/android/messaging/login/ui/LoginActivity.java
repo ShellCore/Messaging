@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.shellcore.android.messaging.R;
 import com.shellcore.android.messaging.contactList.ui.ContactListActivity;
+import com.shellcore.android.messaging.createAccount.ui.CreateAccountActivity;
 import com.shellcore.android.messaging.login.LoginPresenter;
 import com.shellcore.android.messaging.login.LoginPresenterImpl;
 
@@ -98,11 +99,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @OnClick(R.id.btnSignup)
     @Override
     public void handleSignup() {
-        String email = edtEmail.getText().toString();
-        String password = edtPassword.getText().toString();
-        if (email != null && !email.isEmpty() && password != null && !password.isEmpty()) {
-            presenter.registerNewUser(email, password);
-        }
+        startActivity(new Intent(this, CreateAccountActivity.class));
     }
 
     @Override

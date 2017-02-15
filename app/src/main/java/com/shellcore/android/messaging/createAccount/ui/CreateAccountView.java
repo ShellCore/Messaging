@@ -5,12 +5,13 @@ package com.shellcore.android.messaging.createAccount.ui;
  */
 
 public interface CreateAccountView {
-    void enableInputf();
+    void enableInput();
     void disableInput();
     void showProgress();
     void hideProgress();
 
     void handleSignUp();
+    void handleCancel();
 
     void navigateToMainScreen();
     void loginError(String error);
