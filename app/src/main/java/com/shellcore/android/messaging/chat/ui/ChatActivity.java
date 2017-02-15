@@ -21,6 +21,9 @@ import com.shellcore.android.messaging.entities.ChatMessage;
 import com.shellcore.android.messaging.libs.GlideImageLoader;
 import com.shellcore.android.messaging.libs.ImageLoader;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -106,11 +109,12 @@ public class ChatActivity extends AppCompatActivity implements ChatView {
     }
 
     private void setupAdapter() {
-
+        adapter = new ChatAdapter(this, new ArrayList<ChatMessage>());
     }
 
     private void setupRecyclerView() {
         recMessages.setLayoutManager(new LinearLayoutManager(this));
+        recMessages.setAdapter(adapter);
     }
 
     @Override
