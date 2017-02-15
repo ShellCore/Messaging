@@ -27,6 +27,7 @@
         <activity
             android:name=".chat.ui.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".createAccount.ui.CreateAccountActivity"></activity>
     </application>
 
 </manifest>
