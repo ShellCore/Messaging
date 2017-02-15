@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.shellcore.android.messaging.R;
 import com.shellcore.android.messaging.addContact.ui.AddContactFragment;
+import com.shellcore.android.messaging.chat.ui.ChatActivity;
 import com.shellcore.android.messaging.contactList.ContactListPresenter;
 import com.shellcore.android.messaging.contactList.ContactListPresenterImpl;
 import com.shellcore.android.messaging.contactList.ui.adapters.ContactListAdapter;
@@ -133,8 +134,10 @@ public class ContactListActivity extends AppCompatActivity implements ContactLis
 
     @Override
     public void onItemClick(User user) {
-        Toast.makeText(this, user.getEmail(), Toast.LENGTH_SHORT)
-                .show();
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra(ChatActivity.EMAIL_KEY, user.getEmail());
+        intent.putExtra(ChatActivity.ONLINE_KEY, user.isOnline());
+        startActivity(intent);
     }
 
     @Override
