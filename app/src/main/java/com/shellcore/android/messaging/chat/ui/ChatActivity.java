@@ -22,7 +22,6 @@ import com.shellcore.android.messaging.libs.GlideImageLoader;
 import com.shellcore.android.messaging.libs.ImageLoader;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
