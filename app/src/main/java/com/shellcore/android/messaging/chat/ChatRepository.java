@@ -8,7 +8,7 @@ public interface ChatRepository {
     void changeConnectionStatus(boolean online);
 
     void sendMessage(String message);
-    void setRecipient(String reciíent);
+    void setRecipient(String recipient);
 
     void subscribe();
     void unsubscribe();
